@@ -3,7 +3,7 @@ requires = ["setuptools>=68", "wheel", "Cython>=3.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "configuration_core"
+name = "configuration-core"
 version = "0.2.2"
 description = "Shared config loader, env resolver, and generic CRUD API factory for Analytic AI services."
 readme = "README.md"

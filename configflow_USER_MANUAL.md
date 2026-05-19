@@ -11,19 +11,19 @@
 ### Basic Installation (Config Loading Only)
 
 ```cmd
-pip install configuration_core
+pip install configuration-core
 ```
 
 ### With API Support (FastAPI + Pydantic)
 
 ```cmd
-pip install configuration_core[api]
+pip install configuration-core[api]
 ```
 
 ### With Everything (API + Cython Protection)
 
 ```cmd
-pip install configuration_core[all]
+pip install configuration-core[all]
 ```
 
 Verify:

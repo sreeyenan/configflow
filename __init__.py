@@ -1,6 +1,6 @@
 try:
     from importlib.metadata import version
-    __version__ = version("configuration_core")
+    __version__ = version("configuration-core")
 except Exception:
     __version__ = "0.0.0"  # Fallback for development
 
