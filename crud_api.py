@@ -11,7 +11,7 @@ on any storage backend (ClickHouse, DuckDB, etc.). Supports:
 - Backend-agnostic through adapter pattern
 
 Usage:
-    from config_core import create_crud_router, ClickHouseBackend
+    from configflow import create_crud_router, ClickHouseBackend
     from clickhouse_core import ClickHouseClient
     
     client = ClickHouseClient(config)
@@ -121,7 +121,7 @@ def create_crud_router(
         RuntimeError: If FastAPI is not installed
         
     Example:
-        from config_core import create_crud_router, ClickHouseBackend
+        from configflow import create_crud_router, ClickHouseBackend
         from clickhouse_core import ClickHouseClient
         
         client = ClickHouseClient(config)

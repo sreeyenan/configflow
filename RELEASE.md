@@ -48,5 +48,5 @@ python -m build
 
 Build both wheels (pure + protected) with helper script:
 ```
-python scripts/build_config_core.py
+python scripts/build_configflow.py
 ```

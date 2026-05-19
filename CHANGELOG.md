@@ -70,7 +70,7 @@ Updated `__init__.py` to export new APIs (with graceful fallback if FastAPI not 
 
 ### ðŸ“ Documentation
 
-- Updated **config_core_USER_MANUAL.md** with comprehensive ClickHouse concepts:
+- Updated **configflow_USER_MANUAL.md** with comprehensive ClickHouse concepts:
   - All MergeTree engine types and when to use them
   - Partitioning strategies (by month, day, custom)
   - TTL policies for data retention
@@ -125,4 +125,4 @@ None - all existing APIs remain unchanged. New features are additive and optiona
 - Version management for configs
 
 ## 0.1.0
-- Initial config_core with JSON loading and env placeholder resolution.
+- Initial configflow with JSON loading and env placeholder resolution.

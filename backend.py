@@ -55,7 +55,7 @@ class ConfigStore:
         try:
             from clickhouse_core import ClickHouseConfig, ClickHouseClient
         except ImportError as exc:
-            raise RuntimeError("clickhouse-core is required for config_core clickhouse backend") from exc
+            raise RuntimeError("clickhouse-core is required for configflow clickhouse backend") from exc
 
         env_params = {
             "host": os.getenv("CLICKHOUSE_HOST"),
@@ -86,7 +86,7 @@ class ConfigStore:
         )
 
         self._client = ClickHouseClient(cfg)
-        logger.info("config_core connected to ClickHouse (%s:%s/%s)", cfg.host, cfg.port, cfg.database)
+        logger.info("configflow connected to ClickHouse (%s:%s/%s)", cfg.host, cfg.port, cfg.database)
 
     def _ensure_configs_table(self) -> None:
         create_table_sql = """

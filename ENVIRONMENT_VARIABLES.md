@@ -1,6 +1,6 @@
-# config_core Environment Variables
+# configflow Environment Variables
 
-`config_core` resolves values from environment variables using the syntax:
+`configflow` resolves values from environment variables using the syntax:
 
 ```
 ${VAR}

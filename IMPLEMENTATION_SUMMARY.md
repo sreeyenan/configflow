@@ -51,7 +51,7 @@ Created simplified handler examples showing the power of the new approach:
 
 **Usage:**
 ```python
-from config_core import create_crud_router
+from configflow import create_crud_router
 
 router = create_crud_router(
     table_name="widget_query",
@@ -95,7 +95,7 @@ router = create_crud_router(
 
 **Usage:**
 ```python
-from config_core import create_config_router
+from configflow import create_config_router
 
 router = create_config_router(
     config_store=config_store,           # Uses config_name automatically
@@ -114,7 +114,7 @@ router = create_config_router(
 
 ```bash
 # Navigate to config-core
-cd analytic_ai/libs/config_core
+cd analytic_ai/libs/configflow
 
 # Install with API support (FastAPI + Pydantic)
 pip install -e .[api]
@@ -144,7 +144,7 @@ The API modules are **optional** - core config loading works without FastAPI.
 
 ```python
 # engine/handlers/widget_query_handler.py
-from config_core import create_crud_router
+from configflow import create_crud_router
 from engine.services.clickhouse_client import get_clickhouse_client
 from pydantic import BaseModel
 
@@ -220,7 +220,7 @@ GET /widget-query/widget_123/history
 
 ```python
 # engine/handlers/config_handler.py
-from config_core import create_config_router
+from configflow import create_config_router
 from engine.config import config_store, reload_settings
 from engine.models.config_model import RootConfig
 
@@ -269,7 +269,7 @@ Want to add config management to ETL service? **10 lines of code!**
 
 ```python
 # etl_analytic_ai/etl/handlers/config_handler.py (NEW FILE)
-from config_core import create_config_router
+from configflow import create_config_router
 from etl.config import config_store  # Uses 'etl_config' in database
 
 router = create_config_router(
@@ -291,7 +291,7 @@ Want CRUD for a new table? **Define models + one function call!**
 
 ```python
 # Example: User permissions table
-from config_core import create_crud_router
+from configflow import create_crud_router
 from pydantic import BaseModel
 
 class PermissionCreate(BaseModel):
@@ -447,12 +447,12 @@ The pattern works for:
 
 ## ðŸ“š Documentation
 
-All documentation is in `analytic_ai/libs/config_core/`:
+All documentation is in `analytic_ai/libs/configflow/`:
 
 - **`README.md`** - Installation, usage examples, API reference
 - **`MIGRATION_GUIDE.md`** - Step-by-step migration instructions
 - **`CHANGELOG.md`** - Version history and feature list
-- **`config_core_USER_MANUAL.md`** - ConfigStore usage guide
+- **`configflow_USER_MANUAL.md`** - ConfigStore usage guide
 
 Example handlers:
 - **`engine/handlers/widget_query_handler_NEW.py`** - Generic CRUD example
@@ -471,7 +471,7 @@ Example handlers:
 2. **Test in development**
    ```bash
    # Install with API support
-   cd analytic_ai/libs/config_core
+   cd analytic_ai/libs/configflow
    pip install -e .[api]
    
    # Try the examples
@@ -555,7 +555,7 @@ A: Yes, through configuration options and custom validators.
 
 **How to Use:**
 1. Install: `pip install config-core[api]`
-2. Import factory: `from config_core import create_crud_router`
+2. Import factory: `from configflow import create_crud_router`
 3. Call factory with your table/models
 4. Mount router in FastAPI app
 5. All CRUD endpoints auto-generated!

@@ -6,8 +6,8 @@ using ConfigStore backend. Provides version management, section-based updates,
 and reload capabilities.
 
 Usage:
-    from config_core import ConfigStore
-    from config_core.config_api import create_config_router
+    from configflow import ConfigStore
+    from configflow.config_api import create_config_router
     
     store = ConfigStore(
         initial_config={...},

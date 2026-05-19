@@ -122,7 +122,7 @@ class ClickHouseBackend:
     
     Example:
         from clickhouse_core import ClickHouseClient
-        from config_core import ClickHouseBackend, create_crud_router
+        from configflow import ClickHouseBackend, create_crud_router
         
         client = ClickHouseClient(config)
         backend = ClickHouseBackend(client, primary_key="widget_id")
@@ -261,7 +261,7 @@ class DuckDbBackend:
     
     Example:
         from cached_duckdb import DuckDbCacheManager
-        from config_core import DuckDbBackend, create_crud_router
+        from configflow import DuckDbBackend, create_crud_router
         
         cache = DuckDbCacheManager()
         cache.store(database="client_abc", table="sales", df=df)

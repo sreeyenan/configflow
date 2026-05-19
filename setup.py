@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 def build_extensions():
-    if os.getenv("CONFIG_CORE_CYTHONIZE") != "1":
+    if os.getenv("CONFIGFLOW_CYTHONIZE") != "1":
         return []
 
     try:
@@ -29,7 +29,7 @@ def build_extensions():
     ]
 
     extensions = [
-        Extension("config_core." + Path(src).stem, [src])
+        Extension("configflow." + Path(src).stem, [src])
         for src in sources
     ]
     return cythonize(

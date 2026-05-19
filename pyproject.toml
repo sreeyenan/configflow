@@ -32,11 +32,11 @@ all = [
 
 [tool.setuptools]
 include-package-data = true
-packages = ["config_core"]
-package-dir = {"config_core" = "."}
+packages = ["configflow"]
+package-dir = {"configflow" = "."}
 
 [tool.setuptools.package-data]
-config_core = [
+configflow = [
   "VERSION",
   "CHANGELOG.md",
   "RELEASE.md",

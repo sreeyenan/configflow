@@ -31,7 +31,7 @@ Enhanced configflow v0.2.0 with **comprehensive ClickHouse table creation utilit
 
 **Example:**
 ```python
-from config_core import create_table_initializer
+from configflow import create_table_initializer
 
 sql = create_table_initializer(
     table_name="events",
@@ -64,7 +64,7 @@ client.execute(sql)
 
 **Example:**
 ```python
-from config_core import create_materialized_view_sql
+from configflow import create_materialized_view_sql
 
 mv_sql = create_materialized_view_sql(
     view_name="user_stats_mv",
@@ -118,7 +118,7 @@ See [widget_query_COMPLETE_EXAMPLE.py](c:\\WorkSpace\\Dashboard\\Microservices\\
 The table creation helpers work seamlessly with `create_crud_router()`:
 
 ```python
-from config_core import (
+from configflow import (
     create_table_initializer,
     create_materialized_view_sql,
     create_crud_router,

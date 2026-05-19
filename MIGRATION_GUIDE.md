@@ -18,7 +18,7 @@ Version 0.2.0 introduces powerful API factory functions that eliminate 80-90% of
 ### Update config-core
 
 ```bash
-# Navigate to libs/config_core
+# Navigate to libs/configflow
 cd analytic_ai/libs/config_core
 
 # Install with API support
@@ -31,7 +31,7 @@ pip install -e .[all]
 ### Verify Installation
 
 ```python
-from config_core import create_crud_router, create_config_router
+from configflow import create_crud_router, create_config_router
 print("âœ… API modules loaded successfully!")
 ```
 
@@ -89,7 +89,7 @@ async def get_widget_query_history(widget_id: str, client: CHClient = Depends(..
 ```python
 from fastapi import Depends
 from pydantic import BaseModel, Field
-from config_core import create_crud_router
+from configflow import create_crud_router
 from engine.services.clickhouse_client import get_clickhouse_client
 
 # Define models (same as before)
@@ -206,7 +206,7 @@ async def get_config_versions(client: CHClient = Depends(...)):
 **New: `engine/handlers/config_handler.py`** (20 lines)
 
 ```python
-from config_core import create_config_router
+from configflow import create_config_router
 from engine.config import config_store, reload_settings
 from engine.models.config_model import RootConfig
 
@@ -234,7 +234,7 @@ router = create_config_router(
    ```
 
 2. **Create new handler using factory**
-   - Import `create_config_router` from config_core
+   - Import `create_config_router` from configflow
    - Import `config_store` from your service's config module
    - Add `create_config_router()` call
    - Remove all custom endpoint functions
@@ -267,7 +267,7 @@ router = create_config_router(
 **File: `etl_analytic_ai/etl/handlers/config_handler.py`** (NEW)
 
 ```python
-from config_core import create_config_router
+from configflow import create_config_router
 from etl.config import config_store  # Uses 'etl_config' in database
 
 router = create_config_router(
@@ -284,7 +284,7 @@ router = create_config_router(
 **File: `nlq_analytic_ai/nlq/handlers/config_handler.py`** (NEW)
 
 ```python
-from config_core import create_config_router
+from configflow import create_config_router
 from nlq.config import config_store  # Uses 'nlq_config' in database
 
 router = create_config_router(
@@ -305,7 +305,7 @@ router = create_config_router(
 Want to add CRUD for a new `user_permissions` table? Just define models and call the factory!
 
 ```python
-from config_core import create_crud_router
+from configflow import create_crud_router
 from pydantic import BaseModel
 
 class PermissionCreate(BaseModel):
@@ -381,7 +381,7 @@ pip install config-core[api]
 **Solution**: Make sure your service's config module has initialized ConfigStore:
 ```python
 # engine/config.py
-from config_core import ConfigStore
+from configflow import ConfigStore
 
 config_store = ConfigStore(
     initial_config=initial_config,
