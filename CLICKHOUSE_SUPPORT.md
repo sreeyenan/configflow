@@ -269,9 +269,9 @@ def teardown_test_table():
 
 ## Documentation
 
-- **User Manual**: [config_core_USER_MANUAL.md](c:\\WorkSpace\\Dashboard\\Microservices\\analyticAI_microservices_python_services\\analytic_ai\\libs\\config_core\\config_core_USER_MANUAL.md) - Comprehensive guide with all ClickHouse concepts
+- **User Manual**: [configflow_USER_MANUAL.md](c:\\WorkSpace\\Dashboard\\Microservices\\analyticAI_microservices_python_services\\analytic_ai\\libs\\\configflow\\\configflow_USER_MANUAL.md) - Comprehensive guide with all ClickHouse concepts
 - **Complete Example**: [widget_query_COMPLETE_EXAMPLE.py](c:\\WorkSpace\\Dashboard\\Microservices\\analyticAI_microservices_python_services\\analytic_ai\\engine_analytic_ai\\engine\\handlers\\widget_query_COMPLETE_EXAMPLE.py) - Full working implementation
-- **README**: [README.md](c:\\WorkSpace\\Dashboard\\Microservices\\analyticAI_microservices_python_services\\analytic_ai\\libs\\config_core\\README.md) - Installation and quick start
+- **README**: [README.md](c:\\WorkSpace\\Dashboard\\Microservices\\analyticAI_microservices_python_services\\analytic_ai\\libs\\\configflow\\\README.md) - Installation and quick start
 
 ---
 

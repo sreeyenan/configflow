@@ -1,4 +1,8 @@
-__version__ = "0.2.0"
+try:
+    from importlib.metadata import version
+    __version__ = version("configflow")
+except Exception:
+    __version__ = "0.0.0"  # Fallback for development
 
 from .resolver import resolve_env_vars
 from .loader import load_json_config, load_config_from_path, ConfigLoader

@@ -1,17 +1,17 @@
-# config_core Release & Tagging
+# configflow Release & Tagging
 
 This library is versioned **only when the library itself changes**.
 
 ## Version fields
 
-- `libs/config_core/__init__.py` â†’ `__version__`
-- `libs/config_core/VERSION` â†’ single source of truth
-- `libs/config_core/CHANGELOG.md` â†’ human-readable release notes
+- `libs/configflow/__init__.py` â†’ `__version__`
+- `libs/configflow/VERSION` â†’ single source of truth
+- `libs/configflow/CHANGELOG.md` â†’ human-readable release notes
 
 ## When to bump version
 
-Bump the version **only if files under `libs/config_core/` change**.
-Other commits in the monorepo do not require a config_core version bump.
+Bump the version **only if files under `libs/configflow/` change**.
+Other commits in the monorepo do not require a configflow version bump.
 
 ## Release steps
 
@@ -22,7 +22,7 @@ Other commits in the monorepo do not require a config_core version bump.
 Optional helper script:
 
 ```bash
-python scripts/bump_config_core_version.py patch
+python scripts/bump_configflow_version.py patch
 ```
 
 2) Commit
@@ -42,7 +42,7 @@ python -m build
 
 Protected build (Cython .pyd):
 ```
-set CONFIG_CORE_CYTHONIZE=1
+set CONFIGFLOW_CYTHONIZE=1
 python -m build
 ```
 

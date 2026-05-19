@@ -7,18 +7,19 @@ name = "configflow"
 version = "0.2.2"
 description = "Shared config loader, env resolver, and generic CRUD API factory for Analytic AI services."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license-files = ["LICENSE"]
 keywords = ["config", "env", "settings", "crud", "api", "clickhouse"]
 authors = [
-  {name = "sreeyenan"}
+  {name = "sreeyenan", email = "sreeyenanek@gmail.com"}
 ]
 
 dependencies = [
-  "clickhouse-core",
+  "clickhouse-core>=0.2.4",
 ]
 
 [project.optional-dependencies]
+http = ["clickhouse-connect"]
 protected = ["Cython>=3.0"]
 api = [
   "fastapi>=0.100.0",
@@ -39,6 +40,28 @@ package-dir = {"configflow" = "."}
 configflow = [
   "VERSION",
   "CHANGELOG.md",
-  "RELEASE.md",
   "ENVIRONMENT_VARIABLES.md",
+  "configflow_USER_MANUAL.md",
+  "MIGRATION_GUIDE.md",
+  "CLICKHOUSE_SUPPORT.md",
+  "IMPLEMENTATION_SUMMARY.md",
 ]
+
+# ── cibuildwheel ──────────────────────────────────────────────────────────────
+[tool.cibuildwheel]
+build = "cp311-*"
+# musllinux skipped (no gcc toolchain assumption); PyPy skipped (Cython .pyd focus)
+skip = ["*-musllinux*", "pp*"]
+environment = { CONFIGFLOW_CYTHONIZE = "1" }
+test-requires = ["clickhouse-core"]
+test-command = "python -c \"import configflow; print('configflow imported successfully')\""
+
+[tool.cibuildwheel.linux]
+manylinux-x86_64-image = "manylinux2014"
+manylinux-aarch64-image = "manylinux2014"
+
+[tool.cibuildwheel.macos]
+archs = ["x86_64", "arm64"]
+
+[tool.cibuildwheel.windows]
+archs = ["AMD64"]

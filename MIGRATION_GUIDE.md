@@ -19,7 +19,7 @@ Version 0.2.0 introduces powerful API factory functions that eliminate 80-90% of
 
 ```bash
 # Navigate to libs/configflow
-cd analytic_ai/libs/config_core
+cd analytic_ai/libs/configflow
 
 # Install with API support
 pip install -e .[api]
@@ -369,7 +369,7 @@ The old handlers are fully functional and backward compatible.
 
 ## Common Issues
 
-### Issue: "Module 'config_core' has no attribute 'create_crud_router'"
+### Issue: "Module 'configflow' has no attribute 'create_crud_router'"
 
 **Solution**: FastAPI not installed. Install optional dependencies:
 ```bash

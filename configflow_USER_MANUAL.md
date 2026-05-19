@@ -1,18 +1,8 @@
 # configflow â€” User Manual
 
-**Version:** 0.2.0  
+**Version:** 0.2.2  
 **Author:** sreeyenan  
-**Release Date:** May 16, 2026
-
----
-
-## What's New in v0.2.0
-
-ðŸš€ **Major Features:**
-- **Generic CRUD API Factory** - Create full REST APIs for any ClickHouse table in one function call
-- **Config Management API** - Standardized config endpoints with versioning and reload support
-- **ClickHouse Table Helpers** - Utilities for creating tables with MergeTree engines, materialized views, etc.
-- **Optional FastAPI Support** - API features are optional (install with `[api]` extra)
+**Release Date:** May 19, 2026
 
 ---
 
@@ -21,19 +11,19 @@
 ### Basic Installation (Config Loading Only)
 
 ```cmd
-pip install config-core
+pip install configflow
 ```
 
 ### With API Support (FastAPI + Pydantic)
 
 ```cmd
-pip install config-core[api]
+pip install configflow[api]
 ```
 
 ### With Everything (API + Cython Protection)
 
 ```cmd
-pip install config-core[all]
+pip install configflow[all]
 ```
 
 Verify:
