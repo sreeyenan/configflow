@@ -16,19 +16,19 @@ Shared config loader, environment variable resolver, and generic CRUD API factor
 ### Basic Installation (Config Loading Only)
 
 ```bash
-pip install configflow
+pip install configuration_core
 ```
 
 ### With API Support (FastAPI + Pydantic)
 
 ```bash
-pip install configflow[api]
+pip install configuration_core[api]
 ```
 
 ### With Everything (API + Cython Protection)
 
 ```bash
-pip install configflow[all]
+pip install configuration_core[all]
 ```
 
 ## Quick Start

@@ -11,19 +11,19 @@
 ### Basic Installation (Config Loading Only)
 
 ```cmd
-pip install configflow
+pip install configuration_core
 ```
 
 ### With API Support (FastAPI + Pydantic)
 
 ```cmd
-pip install configflow[api]
+pip install configuration_core[api]
 ```
 
 ### With Everything (API + Cython Protection)
 
 ```cmd
-pip install configflow[all]
+pip install configuration_core[all]
 ```
 
 Verify:
