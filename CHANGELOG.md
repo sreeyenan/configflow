@@ -1,5 +1,47 @@
 # Changelog
 
+## 0.2.3 (2026-05-21)
+
+### 🚀 New Features
+
+#### DuckDB Backend Support
+- **NEW**: `ConfigStore` now supports DuckDB as an alternative backend to ClickHouse
+- Add `duckdb_params` parameter to specify DuckDB database file path
+- Use `backend="duckdb"` to switch from ClickHouse to DuckDB
+- Same API for both backends - all CRUD operations work identically
+- Environment variable support: `DUCKDB_DATABASE` and `DEFAULT_BACKEND`
+- In-memory mode support with `:memory:` database path
+- Ideal for local development, testing, and single-instance services
+
+**Backend Comparison**:
+- **ClickHouse**: Distributed database, best for production multi-pod deployments with shared state
+- **DuckDB**: Embedded database, best for local dev, testing, or single-instance services
+
+**Use Case**: Use DuckDB for development/testing to avoid setting up ClickHouse infrastructure, or for single-instance deployments where shared state is not needed.
+
+**Example**:
+```python
+store = ConfigStore(
+    initial_config=config,
+    duckdb_params={"database": "config.duckdb"},
+    backend="duckdb",
+    config_name="my_config",
+)
+```
+
+### 📝 Documentation
+- Updated README.md with DuckDB installation and usage examples
+- Updated User Manual with DuckDB backend documentation
+- Added backend comparison table
+- Created `example_duckdb.py` demonstrating DuckDB usage
+
+### 🔧 Dependencies
+- Added optional `duckdb>=0.8.0` dependency
+- Install with: `pip install configuration-core[duckdb]`
+- Or: `pip install configuration-core[all]` for all features
+
+---
+
 ## 0.2.0 (2026-05-16)
 
 ### ðŸš€ Major New Features

@@ -20,7 +20,13 @@ pip install configuration-core
 pip install configuration-core[api]
 ```
 
-### With Everything (API + Cython Protection)
+### With DuckDB Backend Support
+
+```cmd
+pip install configuration-core[duckdb]
+```
+
+### With Everything (API + DuckDB + Cython Protection)
 
 ```cmd
 pip install configuration-core[all]
@@ -70,7 +76,7 @@ print("API features OK")
 
 1. [Core Functionality](#core-functionality)
    - File-based Config Loading
-   - ClickHouse-backed ConfigStore
+   - Database-backed ConfigStore (ClickHouse or DuckDB)
 2. [API Features (NEW)](#api-features-new)
    - Generic CRUD API Factory
    - Config Management API
@@ -240,15 +246,16 @@ resolved = resolve_env_vars(raw)
 
 ## 5. `ConfigStore`
 
-Stores versioned configurations in a ClickHouse `configs` table. On first use it seeds the table with your initial config. Subsequent calls load from the database.
+Stores versioned configurations in a database table (ClickHouse or DuckDB). On first use it seeds the table with your initial config. Subsequent calls load from the database.
 
 ### Constructor
 
 ```python
 ConfigStore(
     initial_config: dict,          # used to seed if no config exists in DB
-    clickhouse_params: dict,       # host/port/database/username/password
-    backend: str = "clickhouse",   # only "clickhouse" supported
+    clickhouse_params: dict,       # host/port/database/username/password (for ClickHouse)
+    duckdb_params: dict,           # database path (for DuckDB) - e.g., {"database": "config.duckdb"}
+    backend: str = "clickhouse",   # "clickhouse" (default) or "duckdb"
     config_name: str = "engine_config",
     environment: str = "default",
 )
@@ -299,6 +306,41 @@ print(cfg["threshold"])  # 0.9
 # Force re-read from DB (skip cache)
 cfg = store.get_config(refresh=True)
 ```
+
+**DuckDB Backend Example:**
+
+```python
+from configflow import ConfigStore
+
+# Using DuckDB backend (embedded database)
+store = ConfigStore(
+    initial_config={"feature_x": True, "threshold": 0.9},
+    duckdb_params={
+        "database": "config.duckdb"  # or ":memory:" for in-memory
+    },
+    backend="duckdb",  # Specify DuckDB backend
+    config_name="engine_config",
+    environment="production",
+)
+
+# Same API - read config
+cfg = store.get_config()
+print(cfg["threshold"])  # 0.9
+
+# Force re-read from DB (skip cache)
+cfg = store.get_config(refresh=True)
+```
+
+**Backend Comparison:**
+
+| Feature | ClickHouse | DuckDB |
+|---|---|---|
+| **Type** | Distributed database | Embedded database |
+| **Use case** | Multi-service deployments | Single-service, local dev |
+| **Shared state** | ✅ All pods share config | ⚠️ Each service has own DB file |
+| **File-based** | ❌ No | ✅ Yes (portable .duckdb file) |
+| **In-memory mode** | ❌ No | ✅ Yes (`:memory:`) |
+| **Best for** | Production multi-pod | Dev/test, single-instance |
 
 ### Methods
 
@@ -478,7 +520,9 @@ cfg = store.get_config()  # returns staging values from same DB record
 
 ## Environment Variable Overrides for ConfigStore
 
-Instead of passing `clickhouse_params`, you can set these environment variables:
+Instead of passing `clickhouse_params` or `duckdb_params`, you can set these environment variables:
+
+**ClickHouse Backend:**
 
 | Variable | Description |
 |---|---|
@@ -487,7 +531,18 @@ Instead of passing `clickhouse_params`, you can set these environment variables:
 | `CLICKHOUSE_DATABASE` | Database name |
 | `CLICKHOUSE_USERNAME` | Username |
 | `CLICKHOUSE_PASSWORD` | Password |
-| `DEFAULT_BACKEND` | Backend type (only `clickhouse`) |
+
+**DuckDB Backend:**
+
+| Variable | Description |
+|---|---|
+| `DUCKDB_DATABASE` | Path to DuckDB database file (default `:memory:`) |
+
+**Common:**
+
+| Variable | Description |
+|---|---|
+| `DEFAULT_BACKEND` | Backend type: `clickhouse` (default) or `duckdb` |
 | `ENVIRONMENT` | Config environment name (e.g. `production`) |
 
 ---

@@ -25,7 +25,13 @@ pip install configuration-core
 pip install configuration-core[api]
 ```
 
-### With Everything (API + Cython Protection)
+### With DuckDB Backend Support
+
+```bash
+pip install configuration-core[duckdb]
+```
+
+### With Everything (API + DuckDB + Cython Protection)
 
 ```bash
 pip install configuration-core[all]
@@ -52,7 +58,7 @@ from configflow import ConfigStore, load_config_from_path
 # Load initial config from file (once at startup)
 cfg = load_config_from_path(Path("config/config.json"))
 
-# Create versioned config store backed by ClickHouse
+# Create versioned config store backed by ClickHouse (default)
 store = ConfigStore(
     initial_config=cfg,
     clickhouse_params=cfg["clickhouse"],
@@ -68,6 +74,28 @@ store.patch_config({"threshold": 0.95})
 
 # Reload from database
 fresh_config = store.get_config(refresh=True)
+```
+
+### DuckDB-backed Config Store (NEW in v0.2.2)
+
+```python
+from configflow import ConfigStore, load_config_from_path
+
+# Load initial config from file
+cfg = load_config_from_path(Path("config/config.json"))
+
+# Create versioned config store backed by DuckDB
+store = ConfigStore(
+    initial_config=cfg,
+    duckdb_params={"database": "config.duckdb"},  # or ":memory:" for in-memory
+    backend="duckdb",  # Specify DuckDB backend
+    config_name="my_service_config",
+    environment="production",
+)
+
+# Same API as ClickHouse - get, update, patch, delete all work the same
+live_config = store.get_config()
+store.patch_config({"threshold": 0.95})
 ```
 
 ### Generic CRUD API (NEW in v0.2.0)
@@ -139,6 +167,11 @@ Environment variables for ClickHouse connection (inherited from clickhouse-core)
 - `CLICKHOUSE_PROTOCOL` (tcp|http)
 - `CLICKHOUSE_SECURE` (true/false)
 
+Environment variables for DuckDB backend:
+
+- `DUCKDB_DATABASE` - Path to DuckDB database file (default: `:memory:`)
+- `DEFAULT_BACKEND` - Set to `"duckdb"` to use DuckDB as default backend
+
 ## Documentation
 
 For detailed usage, API reference, and advanced features, see:
@@ -171,6 +204,21 @@ For detailed usage, API reference, and advanced features, see:
 - Variables are resolved at config read time
 - DB stores raw placeholders; resolution happens on each `get_config()` call
 - Same config works across all environments (dev/staging/prod)
+
+### Backend Comparison: ClickHouse vs DuckDB
+
+| Feature | ClickHouse | DuckDB |
+|---|---|---|
+| **Type** | Distributed database | Embedded database |
+| **Use case** | Multi-service deployments | Single-service or local development |
+| **Shared state** | ✅ All pods/services share config | ⚠️ Each service has its own DB file |
+| **Performance** | Optimized for large-scale analytics | Optimized for single-node workloads |
+| **Setup complexity** | Requires server deployment | Zero setup (embedded) |
+| **File-based** | ❌ No | ✅ Yes (portable .duckdb file) |
+| **In-memory mode** | ❌ No | ✅ Yes (`:memory:`) |
+| **Best for** | Production multi-pod deployments | Dev/test, single-instance services |
+
+**Recommendation**: Use ClickHouse for production multi-service deployments. Use DuckDB for local development, testing, or single-instance services.
 
 ### Generic CRUD API Factory
 
